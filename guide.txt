@@ -218,3 +218,181 @@ Just tell:
 
 Ready? 😈🔥
 
+Ok cool, this one proper workflow, so step-by-step clean ah kudukuren da.
+Target: Install Google App Engine (GAE) SDK → create sample app → run locally in Ubuntu VM.
+
+
+---
+
+🧩 Step 1 — Update Ubuntu
+
+sudo apt update && sudo apt upgrade -y
+
+
+---
+
+🧲 Step 2 — Install Python + Pip (GAE uses it)
+
+sudo apt install python3 python3-pip -y
+
+Check:
+
+python3 --version
+pip3 --version
+
+
+---
+
+☁️ Step 3 — Install Google Cloud CLI (GCLOUD)
+
+This one required because App Engine deploy/run depends on it.
+
+Download key:
+
+curl -O https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+Add repo:
+
+sudo apt-get install apt-transport-https ca-certificates gnupg -y
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | \
+sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list > /dev/null
+
+Add key:
+
+sudo install -m 644 apt-key.gpg /usr/share/keyrings/cloud.google.gpg
+
+Update + install:
+
+sudo apt update && sudo apt install google-cloud-sdk -y
+
+Verify:
+
+gcloud --version
+
+
+---
+
+🔐 Step 4 — Login to Google Account
+
+gcloud auth login
+
+Browser open aagum → login → approve.
+
+
+---
+
+🏗️ Step 5 — Enable App Engine
+
+Choose region (ex: asia-south1 for India support):
+
+gcloud app create --region=asia-south1
+
+
+---
+
+🚀 Step 6 — Install App Engine Python Components
+
+gcloud components install app-engine-python
+
+
+---
+
+🧪 Step 7 — Create Sample App
+
+Create folder:
+
+mkdir myapp && cd myapp
+
+Create file:
+
+app.yaml
+
+runtime: python310
+entrypoint: gunicorn -b :$PORT main:app
+
+Create:
+
+requirements.txt
+
+Flask==3.0.0
+gunicorn==21.2.0
+
+Then mainfile:
+
+main.py
+
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello from Google App Engine 😎🔥"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
+
+
+---
+
+⏳ Step 8 — Install dependencies
+
+pip3 install -r requirements.txt
+
+
+---
+
+🧪 Step 9 — Run App Locally
+
+python3 main.py
+
+Browser open:
+
+👉 http://localhost:8080
+
+You should see:
+
+Hello from Google App Engine 😎🔥
+
+
+---
+
+🌍 Step 10 — Deploy to Google Cloud
+
+gcloud app deploy
+
+Then access live:
+
+gcloud app browse
+
+
+---
+
+📌 Summary Flow
+
+Step	Status
+
+Install Python	✔️
+Install gcloud	✔️
+Init App Engine	✔️
+Create Flask app	✔️
+Run local	✔️
+Deploy cloud	✔️
+
+
+
+---
+
+If you want, next I can teach:
+
+Custom domain setup
+
+Firestore + App Engine integration
+
+CI/CD auto deploy
+
+Dockerizing the project
+
+
+Just say:
+
+👉 “Level 2 podu da.” 😈🔥
