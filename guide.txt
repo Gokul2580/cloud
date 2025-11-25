@@ -84,3 +84,137 @@ Output:
 
 Hello, World 👋
 
+Cool bro, agora full walkthrough pannuren — install → test → run real container. Follow this step-by-step, tension illa 😎👇
+
+
+---
+
+🐳 Step 1 — Update System
+
+sudo apt update && sudo apt upgrade -y
+
+
+---
+
+🔧 Step 2 — Install Required Packages
+
+sudo apt install ca-certificates curl gnupg
+
+
+---
+
+🔑 Step 3 — Add Docker GPG Key
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+
+---
+
+📦 Step 4 — Add Docker Repo
+
+echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+$(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+---
+
+📥 Step 5 — Install Docker Engine
+
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+
+---
+
+🔍 Step 6 — Verify Installation
+
+docker --version
+
+Expected something like:
+
+Docker version 27.xx.x
+
+
+---
+
+👤 Step 7 — Allow Running Docker Without sudo
+
+sudo usermod -aG docker $USER
+
+➡️ IMPORTANT: Logout → Login once
+(illena permission work aagathu)
+
+
+---
+
+🧪 Step 8 — Test Docker
+
+docker run hello-world
+
+If everything is correct, output like this varum:
+
+Hello from Docker!
+
+🔥 That means Docker working perfectly.
+
+
+---
+
+🚀 Step 9 — Run a Real Container (Ubuntu inside Ubuntu)
+
+docker run -it ubuntu bash
+
+Now u inside container ↓
+(ls, pwd, apt install pannalam)
+
+Exit panna:
+
+exit
+
+
+---
+
+🎯 Step 10 — Run a Web Server Example
+
+docker run -d -p 8080:80 nginx
+
+Then browser open → http://localhost:8080
+→ NGINX welcome page varum 🥵🔥
+
+
+---
+
+☑️ Checklist
+
+Task	Status
+
+Installed Docker	✅
+Run hello-world	✅
+Run Ubuntu Shell container	✅
+Run NGINX webserver	✅
+
+
+
+---
+
+If u want next stage:
+
+Dockerfile create
+
+Images build
+
+Docker Compose setup
+
+Host website inside Docker
+
+
+Just tell:
+
+👉 "Next level solderu da"
+
+Ready? 😈🔥
+
